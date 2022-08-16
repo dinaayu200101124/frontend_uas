@@ -26,9 +26,6 @@ const UserList = () => {
   return (
     <div className="columns mt-5">
       <div className="column is-half">
-        <button onClick="history.back" className="button is-success">
-          Go Back
-        </button>
         <Link to="add" className="button is-success">
           Add New
         </Link>
