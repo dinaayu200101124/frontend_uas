@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
- 
+
 const UserList = () => {
   const [users, setUser] = useState([]);
- 
+
   useEffect(() => {
     getUsers();
   }, []);
- 
+
   const getUsers = async () => {
     const response = await axios.get("https://backend-ujian.herokuapp.com/users");
     setUser(response.data);
   };
- 
+
   const deleteUser = async (id) => {
     try {
       await axios.delete(`https://backend-ujian.herokuapp.com/users`);
@@ -22,10 +22,14 @@ const UserList = () => {
       console.log(error);
     }
   };
- 
+
   return (
     <div className="columns mt-5">
       <div className="column is-half">
+        <Link to="http://localhost/profile/" className="button is-success">
+          Add Profile
+        </Link>
+
         <Link to="add" className="button is-success">
           Add New
         </Link>
@@ -33,13 +37,22 @@ const UserList = () => {
           <thead>
             <tr>
               <th>No</th>
-              <th>Nama</th>
+              <th>
+                Nama
+                <table border="1" width="200px"></table>
+              </th>
               <th>NIM</th>
               <th>Kelas</th>
               <th>Semester</th>
-              <th>Jenis Kelamin</th>
+              <th>
+                Jenis Kelamin
+                <table border="1" width="150px"></table>
+              </th>
               <th>Alamat</th>
-              <th>Actions</th>
+              <th>
+                Actions
+                <table border="1" width="150px"></table>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -53,16 +66,10 @@ const UserList = () => {
                 <td>{user.jenis_kelamin}</td>
                 <td>{user.alamat}</td>
                 <td>
-                  <Link
-                    to={`edit/${user._id}`}
-                    className="button is-info is-small mr-1"
-                  >
+                  <Link to={`edit/${user._id}`} className="button is-info is-small mr-1">
                     Edit
                   </Link>
-                  <button
-                    onClick={() => deleteUser(user._id)}
-                    className="button is-danger is-small"
-                  >
+                  <button onClick={() => deleteUser(user._id)} className="button is-danger is-small">
                     Delete
                   </button>
                 </td>
@@ -74,5 +81,5 @@ const UserList = () => {
     </div>
   );
 };
- 
+
 export default UserList;
